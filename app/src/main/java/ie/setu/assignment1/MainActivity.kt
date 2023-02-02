@@ -14,8 +14,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.addPlayerButton.setOnClickListener {
-            val intent=Intent(this, AddPlayer::class.java)
+        binding.addPlayerButton.setOnClickListener { val intent=Intent(this, AddPlayer::class.java)
                 startActivity(intent)
         }
     }
