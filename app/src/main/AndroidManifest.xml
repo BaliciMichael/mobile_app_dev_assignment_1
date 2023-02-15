@@ -10,12 +10,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Assignment1"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:name=".main.MainApp">
         <activity
-            android:name=".AddPlayer"
+            android:name=".activities.AddPlayer"
+
             android:exported="false" />
+
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

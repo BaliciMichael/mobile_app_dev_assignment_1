@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="darkgrey">#E8151212</color>
+    <color name="buttonAdd">#98FB98</color>
+    <color name="orange">#FFC68A</color>
 </resources>
