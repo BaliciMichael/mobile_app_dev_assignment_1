@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">NBA Player Navigator</string>
+    <string name="app_name">NBA Player Wiki</string>
+    <string name="Add_player_prompt">Add a New NBA Player</string>
+    <string name="Welcome">Welcome to the NBA Player Wiki Where You Can Find Information On Any Player In The League!</string>
 </resources>
