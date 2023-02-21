@@ -1,25 +1,23 @@
 package ie.setu.assignment1.activities
 
-import android.animation.ObjectAnimator
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import ie.setu.assignment1.R
+import ie.setu.assignment1.databinding.ActivityAddPlayerBinding
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
-import kotlinx.coroutines.withTimeout
 
 
 class AddPlayer : AppCompatActivity() {
     //private val players = ArrayList<Player>()
 
-  //  private lateinit var binding: ActivityAddPlayerBinding
+  private lateinit var binding: ActivityAddPlayerBinding
     var player = Player()
-    var app : MainApp? = null
+    lateinit var app : MainApp
 
 
 
@@ -29,9 +27,36 @@ class AddPlayer : AppCompatActivity() {
     private lateinit var club: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_player)
+        binding = ActivityAddPlayerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         app = application as MainApp
+
+// if the update card button was clicked
+        if (intent.hasExtra("player_edit")) {
+            player = intent.extras?.getParcelable("player_edit")!!
+           binding.playerNameEditText.setText(player.name)
+           binding.lastName.setText(player.last)
+           binding.nationalityEditText.setText(player.nationality)
+           binding.playerAgeEditText.setText(player.age.toString())
+           binding.mvpNum.setText(player.numOfMvp.toString())
+           binding.createPlayerButton.setHint("Update Player")
+           binding.addImageButton.setHint("Update Image")
+           binding.textView.setText("Update Chosen Player")
+
+
+           // val playerId = player.id
+           // //println(playerId)
+           // updatePlayer(playerId)
+        }
+
+
+
+
+
+
 
         checkboxmvp = findViewById(R.id.mvp_checkbox)
         mvpNum = findViewById(R.id.mvpNum)
@@ -114,6 +139,7 @@ class AddPlayer : AppCompatActivity() {
             val club = clubSpinner.selectedItem.toString()
             val position = positionSpinner.selectedItem.toString()
 
+
             if (playerName.isEmpty()) {
                 playerNameEditText.setHintTextColor(ContextCompat.getColor(this, R.color.red))
                 //println(ContextCompat.getColor(this,R.color.red).toString())
@@ -136,7 +162,9 @@ class AddPlayer : AppCompatActivity() {
             }
 
              else {
-                createPlayer(playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
+                val lastPlayerId = app!!.players.findAll().lastOrNull()?.id ?: 0
+                val id = lastPlayerId + 1
+                createPlayer(id,playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
             }
 
         }
@@ -146,26 +174,31 @@ class AddPlayer : AppCompatActivity() {
 
 
 
-    fun createPlayer(playerName: String,lastname: String, playerAge: Int, nationality: String, mvp: Boolean,numOfMvp: Int, club: String, position: String) {
+    fun createPlayer(id:Long,playerName: String,lastname: String, playerAge: Int, nationality: String, mvp: Boolean,numOfMvp: Int, club: String, position: String) {
         //code that adds all the inputted information into an arrayList
 
 
             Toast.makeText(this, "Player has been added", Toast.LENGTH_SHORT).show()
             val newPlayer =
-                Player(playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
-            app!!.players.add(newPlayer)
-            for (p in app!!.players) {
-                println("${p} \n")
-
-        }
-        //set a little delay after the player has been added message
-        Thread.sleep(200)
-        val intent= Intent(this, MainActivity::class.java)
-        startActivity(intent)
+                Player(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
+            app!!.players.create(newPlayer)
+     finish()
 
 
     }
 
+    private fun updatePlayer(playerId: Long) {
+       val player = app.players.findById(playerId)
+
+        if (player != null) {
+            app.players.update(player)
+
+            Toast.makeText(this, "Player updated successfully", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+
+    }
 
 
 }

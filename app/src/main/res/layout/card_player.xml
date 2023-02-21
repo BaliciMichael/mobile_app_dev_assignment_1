@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="4dp"
+    app:cardBackgroundColor="#CCCCCC">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="328dp"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/player_image"
+            android:layout_width="114dp"
+            android:layout_height="118dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/basket" />
+
+        <TextView
+            android:id="@+id/player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_image"
+            android:layout_centerHorizontal="true"
+            android:gravity="center|right"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="First Last" />
+
+        <TextView
+            android:id="@+id/player_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:gravity="center|right"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Age" />
+
+        <TextView
+            android:id="@+id/player_nationality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_age"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:gravity="center|right"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Nationality" />
+
+        <TextView
+            android:id="@+id/player_club"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_nationality"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:gravity="center|right"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Club" />
+
+        <TextView
+            android:id="@+id/player_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_club"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:textStyle="bold"
+            android:gravity="center|right"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Position" />
+
+        <TextView
+            android:id="@+id/numOfMVP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/player_position"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center|right"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="MVPs" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
