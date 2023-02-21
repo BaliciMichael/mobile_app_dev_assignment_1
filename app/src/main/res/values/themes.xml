@@ -5,6 +5,7 @@
 
 <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorOnSecondary">#FBD1C4</item>
         <!-- Secondary brand color. -->
 
         <!-- Status bar color. -->

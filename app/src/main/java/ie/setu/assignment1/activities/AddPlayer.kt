@@ -1,6 +1,7 @@
 package ie.setu.assignment1.activities
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import ie.setu.assignment1.R
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
+import kotlinx.coroutines.withTimeout
 
 
 class AddPlayer : AppCompatActivity() {
@@ -156,6 +158,12 @@ class AddPlayer : AppCompatActivity() {
                 println("${p} \n")
 
         }
+        //set a little delay after the player has been added message
+        Thread.sleep(200)
+        val intent= Intent(this, MainActivity::class.java)
+        startActivity(intent)
+
+
     }
 
 

@@ -51,8 +51,13 @@ class MainActivity : AppCompatActivity() {
             RecyclerView.ViewHolder(binding.root) {
 
             fun bind(player: Player) {
-                binding.playerName.text = player.name
-                binding.playerLast.text = player.last
+                binding.playerName.text = player.name.capitalize() + " " + player.last.capitalize()
+                binding.playerAge.text = "Age: "+ player.age.toString()
+                binding.playerNationality.text = "Nationality: "+player.nationality.capitalize()
+                binding.playerClub.text = "Team: "+player.club.capitalize()
+                binding.playerPosition.text ="Position: "+ player.position.capitalize()
+                binding.numOfMVP.text ="Number of MVP's: " + player.numOfMvp
+
             }
         }
     }
