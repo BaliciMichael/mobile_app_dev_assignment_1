@@ -40,11 +40,17 @@ class AddPlayer : AppCompatActivity() {
             binding.lastName.setText(player.last)
             binding.nationalityEditText.setText(player.nationality)
             binding.playerAgeEditText.setText(player.age.toString())
-            binding.mvpNum.setText(player.numOfMvp.toString())
             binding.createPlayerButton.setHint("Update Player")
             binding.addImageButton.setHint("Update Image")
             binding.textView.setText("Update Player Information")
-
+            binding.mvpCheckbox.isChecked = player.mvp
+            binding.mvpNum.setText(player.numOfMvp.toString())
+            if(binding.mvpCheckbox.isChecked){
+               binding.mvpNum.visibility = View.VISIBLE
+            }
+            else{
+                binding.mvpNum.visibility = View.GONE
+            }
 
            // val playerId = player.id
 //

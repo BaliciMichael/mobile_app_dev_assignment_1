@@ -18,6 +18,7 @@ import ie.setu.assignment1.models.Player
 
 class MainActivity : AppCompatActivity(),PlayerListener{
     private lateinit var binding: ActivityMainBinding
+    private lateinit var binding1: CardPlayerBinding
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +36,10 @@ class MainActivity : AppCompatActivity(),PlayerListener{
     }
     override fun onPlayerClick(player: Player) {
         val launcherIntent = Intent(this, AddPlayer::class.java)
-        launcherIntent.putExtra("player_edit", player)
-        getClickResult.launch(launcherIntent)
+            launcherIntent.putExtra("player_edit", player)
+            getClickResult.launch(launcherIntent)
+
+
     }
 
     private val getClickResult =
