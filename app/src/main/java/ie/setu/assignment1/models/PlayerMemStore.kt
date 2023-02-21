@@ -19,22 +19,23 @@ class PlayerMemStore : PlayerStore {
         return null
     }
 
-    override fun create(placemark: Player) {
-        players.add(placemark)
+    override fun create(player: Player) {
+        players.add(player)
         logAll()
     }
 
-    fun update(player: Player) {
-        var foundPlayer: Player? = players.find { p -> p.id == player.id }
+    fun update(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String) {
+        var foundPlayer: Player? = players.find { p -> p.id == playerId }
         if (foundPlayer != null) {
-            foundPlayer.name = player.name
-            foundPlayer.last = player.last
-            foundPlayer.nationality = player.nationality
-            foundPlayer.age = player.age
-            foundPlayer.club = player.club
-            foundPlayer.position = player.position
-            foundPlayer.numOfMvp = player.numOfMvp
-            foundPlayer.mvp = player.mvp
+            foundPlayer.name = playerName
+            foundPlayer.last = lastname
+            foundPlayer.nationality = nationality
+            foundPlayer.age = playerAge
+            foundPlayer.club = club
+            foundPlayer.position = position
+            foundPlayer.numOfMvp = numOfMvp
+            foundPlayer.mvp = mvp
+            println("Player with the id: ${playerId} has been successfully updated!")
             logAll()
         }
     }
