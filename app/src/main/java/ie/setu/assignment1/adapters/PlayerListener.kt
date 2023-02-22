@@ -4,6 +4,7 @@ import ie.setu.assignment1.models.Player
 
 interface PlayerListener {
 
-        fun onPlayerClick(player: Player)
+        fun onUpdateClick(player: Player)
+        fun onDeleteClick(player: Player)
 
 }

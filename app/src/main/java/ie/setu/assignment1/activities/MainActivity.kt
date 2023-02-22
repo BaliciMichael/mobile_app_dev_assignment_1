@@ -1,11 +1,13 @@
 package ie.setu.assignment1.activities
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +17,11 @@ import ie.setu.assignment1.databinding.ActivityMainBinding
 import ie.setu.assignment1.databinding.CardPlayerBinding
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
+import ie.setu.assignment1.models.PlayerMemStore
 
 class MainActivity : AppCompatActivity(),PlayerListener{
     private lateinit var binding: ActivityMainBinding
-    private lateinit var binding1: CardPlayerBinding
+    private lateinit var bindingcard: CardPlayerBinding
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,15 +35,35 @@ class MainActivity : AppCompatActivity(),PlayerListener{
         binding.recyclerView.adapter=PlayerAdapter(app.players.findAll(),this)
         binding.addPlayerButton.setOnClickListener { val intent=Intent(this, AddPlayer::class.java)
                 startActivity(intent)
+
         }
     }
-    override fun onPlayerClick(player: Player) {
+    override fun onUpdateClick(player: Player) {
         val launcherIntent = Intent(this, AddPlayer::class.java)
-            launcherIntent.putExtra("player_edit", player)
+        launcherIntent.putExtra("player_edit", player)
             getClickResult.launch(launcherIntent)
 
 
     }
+    //sets an confirmation alert if its yes then use removePlayer function which is found in playerListener and refresh the page
+    override fun onDeleteClick(player: Player) {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Are you sure you want to delete ${player.name} ${player.last}?")
+        builder.setPositiveButton("Yes") { _, _ ->
+            app.players.removePlayer(player.id)
+            Toast.makeText(this, "${player.name} ${player.last} has been successfully deleted", Toast.LENGTH_SHORT)
+                .show()
+            Thread.sleep(20)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        //nothing happens when no is clicked
+        builder.setNegativeButton("No") { _, _ -> }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
 
     private val getClickResult =
         registerForActivityResult(

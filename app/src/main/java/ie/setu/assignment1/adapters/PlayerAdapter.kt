@@ -20,6 +20,7 @@ class PlayerAdapter constructor(private var players: List<Player>,private val li
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val player = players[holder.adapterPosition]
         holder.bind(player,listener)
+
     }
 
     override fun getItemCount(): Int = players.size
@@ -36,7 +37,8 @@ class PlayerAdapter constructor(private var players: List<Player>,private val li
             binding.playerPosition.text ="Position: "+ player.position.capitalize()
             binding.numOfMVP.text ="Number of MVP's: " + player.numOfMvp
 
-            binding.root.setOnClickListener { listener.onPlayerClick(player)}
+            binding.updateButton.setOnClickListener { listener.onUpdateClick(player)}
+            binding.deleteButton.setOnClickListener{listener.onDeleteClick(player)}
 
         }
     }
