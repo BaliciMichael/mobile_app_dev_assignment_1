@@ -12,8 +12,8 @@ class MainApp : Application() {
         super.onCreate()
         println("Activity started")
        players.create(Player(1,"Nikola","Jokic",24,"Serbia",true,2,"Denver Nuggets","Center"))
-        players.create(Player(1,"Luka","Doncic",24,"Slovenia",true,1,"Dallas Mavericks","Point Guard"))
-        players.create(Player(1,"James","Harden",27,"USA",false,0,"Utah Jazz","Shooting Guard"))
+        players.create(Player(2,"Luka","Doncic",24,"Slovenia",true,1,"Dallas Mavericks","Point Guard"))
+        players.create(Player(3,"James","Harden",27,"USA",false,0,"Utah Jazz","Shooting Guard"))
 
     }
 }

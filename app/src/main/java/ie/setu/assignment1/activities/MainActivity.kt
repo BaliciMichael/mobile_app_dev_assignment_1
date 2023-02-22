@@ -45,14 +45,14 @@ class MainActivity : AppCompatActivity(),PlayerListener{
 
 
     }
-    //sets an confirmation alert if its yes then use removePlayer function which is found in playerListener and refresh the page
+
     override fun onDeleteClick(player: Player) {
 
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("Are you sure you want to delete ${player.name} ${player.last}?")
+        builder.setMessage("Are you sure you want to delete ${player.name.capitalize()} ${player.last.capitalize()}?")
         builder.setPositiveButton("Yes") { _, _ ->
             app.players.removePlayer(player.id)
-            Toast.makeText(this, "${player.name} ${player.last} has been successfully deleted", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "${player.name.capitalize()} ${player.last.capitalize()} has been successfully deleted", Toast.LENGTH_SHORT)
                 .show()
             Thread.sleep(20)
             val intent = Intent(this, MainActivity::class.java)
