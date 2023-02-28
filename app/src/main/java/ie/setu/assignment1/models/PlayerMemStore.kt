@@ -18,7 +18,7 @@ class PlayerMemStore : PlayerStore {
         }
         return null
     }
-    fun removePlayer(id: Long){
+    override fun removePlayer(id: Long){
         //checks if the id is equal to the id in the arraylist if it is it will remove it
         players.removeIf { it.id == id }
 
