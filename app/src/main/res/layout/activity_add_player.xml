@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:background="#E8151212">
-    ...
+
 
         <ImageView
             android:layout_width="97dp"
@@ -135,9 +135,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="#98FB98"
             android:hint="Add Player"
-            android:onClick="createPlayer"
+            android:backgroundTint="#98FB98"
             android:padding="10dp"
             android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,9 +152,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="#87CEEB"
             android:hint="Add Image"
             android:onClick="imageAddClick"
+            android:backgroundTint="#97c1ff"
             android:padding="10dp"
             android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"

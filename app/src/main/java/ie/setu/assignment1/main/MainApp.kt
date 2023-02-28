@@ -6,7 +6,7 @@ import ie.setu.assignment1.models.PlayerMemStore
 
 class MainApp : Application() {
 
-    //val players = ArrayList<Player>()
+    //val players.txt = ArrayList<Player>()
     val players = PlayerMemStore()
     override fun onCreate() {
         super.onCreate()

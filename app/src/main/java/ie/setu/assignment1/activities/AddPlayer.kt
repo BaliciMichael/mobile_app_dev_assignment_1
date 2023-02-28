@@ -10,10 +10,12 @@ import ie.setu.assignment1.R
 import ie.setu.assignment1.databinding.ActivityAddPlayerBinding
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
+import java.io.File
+import java.io.FileWriter
 
 
 class AddPlayer : AppCompatActivity() {
-    //private val players = ArrayList<Player>()
+    //private val players.txt = ArrayList<Player>()
 
     private lateinit var binding: ActivityAddPlayerBinding
     var player = Player()
@@ -222,7 +224,11 @@ class AddPlayer : AppCompatActivity() {
         val newPlayer =
             Player(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
         app!!.players.create(newPlayer)
-        val intent = Intent(this, MainActivity::class.java)
+
+       // savePlayersToFlatFile(app.players.findAll())
+
+
+        val intent = Intent(this, PlayerListMain::class.java)
         Thread.sleep(200)
         startActivity(intent)
 
@@ -236,13 +242,34 @@ class AddPlayer : AppCompatActivity() {
             app.players.update(playerId,playerName,lastname,playerAge,nationality,mvp,numOfMvp,club,position)
 
             Toast.makeText(this, "Player updated successfully", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, PlayerListMain::class.java)
             Thread.sleep(200)
             startActivity(intent)
         }
 
 
     }
+   // private fun savePlayersToFlatFile(players: List<Player>) {
+   //     val fileName = "players.txt"
+   //     val fileContent = StringBuilder()
+//
+//
+   //     for (player in players) {
+   //         val data = "${player.id},${player.name},${player.last},${player.age},${player.nationality},${player.mvp},${player.numOfMvp},${player.club},${player.position}"
+   //         fileContent.appendLine(data)
+   //     }
+//
+   //     // write content to a text file using a FileWriter
+   //     try {
+   //         val file = File("app/src/main/assets/$fileName")
+   //         val writer = FileWriter(file)
+   //         writer.write(fileContent.toString())
+   //         writer.flush()
+   //         writer.close()
+   //     } catch (e: Exception) {
+   //         e.printStackTrace()
+   //     }
+   // }
 }
 
 

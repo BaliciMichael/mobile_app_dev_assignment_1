@@ -2,6 +2,7 @@ package ie.setu.assignment1.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+
 @Parcelize
 data class Player(
     var id: Long = 0,

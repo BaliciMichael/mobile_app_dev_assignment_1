@@ -5,30 +5,25 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ie.setu.assignment1.adapters.PlayerAdapter
 import ie.setu.assignment1.adapters.PlayerListener
-import ie.setu.assignment1.databinding.ActivityMainBinding
+import ie.setu.assignment1.databinding.PlayerListMainBinding
 import ie.setu.assignment1.databinding.CardPlayerBinding
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
-import ie.setu.assignment1.models.PlayerMemStore
 
-class MainActivity : AppCompatActivity(),PlayerListener{
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var bindingcard: CardPlayerBinding
+class PlayerListMain : AppCompatActivity(),PlayerListener{
+    private lateinit var binding: PlayerListMainBinding
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = application as MainApp
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = PlayerListMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
@@ -55,7 +50,7 @@ class MainActivity : AppCompatActivity(),PlayerListener{
             Toast.makeText(this, "${player.name.capitalize()} ${player.last.capitalize()} has been successfully deleted", Toast.LENGTH_SHORT)
                 .show()
             Thread.sleep(20)
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, PlayerListMain::class.java)
             startActivity(intent)
         }
         //nothing happens when no is clicked
