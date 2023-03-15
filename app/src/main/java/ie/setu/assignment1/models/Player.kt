@@ -1,4 +1,5 @@
 package ie.setu.assignment1.models
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
@@ -14,4 +15,5 @@ data class Player(
     var numOfMvp: Int = 0,
     var club: String = "Empty String" ,
     var position: String = "Empty String",
+    var imageUri: Uri= Uri.EMPTY,
 ) : Parcelable

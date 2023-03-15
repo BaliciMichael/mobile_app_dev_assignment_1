@@ -24,7 +24,6 @@
         android:background="@drawable/circular_button"
         android:backgroundTint="@color/orange"
         android:text="+"
-
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

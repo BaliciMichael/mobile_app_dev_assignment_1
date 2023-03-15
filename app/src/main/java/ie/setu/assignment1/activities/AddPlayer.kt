@@ -4,10 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.squareup.picasso.Picasso
 import ie.setu.assignment1.R
 import ie.setu.assignment1.databinding.ActivityAddPlayerBinding
+import ie.setu.assignment1.helpers.showImagePicker
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
 import java.io.File
@@ -18,6 +22,7 @@ class AddPlayer : AppCompatActivity() {
     //private val players.txt = ArrayList<Player>()
 
     private lateinit var binding: ActivityAddPlayerBinding
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     var player = Player()
     lateinit var app: MainApp
 
@@ -26,6 +31,7 @@ class AddPlayer : AppCompatActivity() {
     private lateinit var mvpNum: EditText
     private lateinit var position: Spinner
     private lateinit var club: Spinner
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -125,8 +131,16 @@ class AddPlayer : AppCompatActivity() {
         adapter2.setDropDownViewResource(R.layout.spinner_layout)
         club.adapter = adapter2
 
+        registerImagePickerCallback()
+        val imagebutton=binding.addImageButton
+        imagebutton.setOnClickListener{
+            showImagePicker(imageIntentLauncher)
+        }
         addPlayerButtonClicked()
+
     }
+
+
 
 
     private fun addPlayerButtonClicked() {
@@ -249,27 +263,25 @@ class AddPlayer : AppCompatActivity() {
 
 
     }
-   // private fun savePlayersToFlatFile(players: List<Player>) {
-   //     val fileName = "players.txt"
-   //     val fileContent = StringBuilder()
-//
-//
-   //     for (player in players) {
-   //         val data = "${player.id},${player.name},${player.last},${player.age},${player.nationality},${player.mvp},${player.numOfMvp},${player.club},${player.position}"
-   //         fileContent.appendLine(data)
-   //     }
-//
-   //     // write content to a text file using a FileWriter
-   //     try {
-   //         val file = File("app/src/main/assets/$fileName")
-   //         val writer = FileWriter(file)
-   //         writer.write(fileContent.toString())
-   //         writer.flush()
-   //         writer.close()
-   //     } catch (e: Exception) {
-   //         e.printStackTrace()
-   //     }
-   // }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            println("Got Result ${result.data!!.data}")
+                            player.imageUri = result.data!!.data!!
+                            Picasso.get()
+                                .load(player.imageUri)
+                                .into(binding.chosenImage)
+                        }
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
 }
 
 
