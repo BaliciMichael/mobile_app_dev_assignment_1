@@ -13,4 +13,9 @@
 
         <!-- Customize your theme here. -->
     </style>
+    <style name="BasketballSplash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">@color/darkgrey</item>
+        <item name="android:foreground">@drawable/basket</item>
+        <item name="android:statusBarColor">@color/darkgrey</item>
+    </style>
 </resources>
