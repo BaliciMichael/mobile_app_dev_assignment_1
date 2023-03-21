@@ -1,5 +1,6 @@
 package ie.setu.assignment1.models
 
+import android.net.Uri
 import org.junit.Test
 import org.junit.Assert.*
 
@@ -20,7 +21,7 @@ class PlayerMemStoreTest {
     @Test
     fun update() {
         store.create(player2)
-        store.update(2,"Mary","Jane",22,"Croatia",true,3,"Nuggets","Point Guard")
+        store.update(2,"Mary","Jane",22,"Croatia",true,3,"Nuggets","Point Guard", Uri.EMPTY)
         assertEquals("Jane", store.findById(2)?.last)
         assertEquals(1, store.findAll().size)
     }

@@ -43,8 +43,8 @@
 
         <ImageView
             android:id="@+id/player_image"
-            android:layout_width="114dp"
-            android:layout_height="118dp"
+            android:layout_width="155dp"
+            android:layout_height="136dp"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
             android:src="@drawable/basket" />

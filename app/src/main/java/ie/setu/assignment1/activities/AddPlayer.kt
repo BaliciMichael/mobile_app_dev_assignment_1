@@ -1,6 +1,7 @@
 package ie.setu.assignment1.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -31,6 +32,7 @@ class AddPlayer : AppCompatActivity() {
     private lateinit var mvpNum: EditText
     private lateinit var position: Spinner
     private lateinit var club: Spinner
+    private lateinit var resultdataimage : Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,7 @@ class AddPlayer : AppCompatActivity() {
             binding.textView.setText("Update Player Information")
             binding.mvpCheckbox.isChecked = player.mvp
             binding.mvpNum.setText(player.numOfMvp.toString())
+            Picasso.get().load(player.imageUri).into(binding.chosenImage)
             if(binding.mvpCheckbox.isChecked){
                binding.mvpNum.visibility = View.VISIBLE
             }
@@ -155,10 +158,11 @@ class AddPlayer : AppCompatActivity() {
             val positionSpinner = findViewById<Spinner>(R.id.position)
             val mvpCheckBox = findViewById<CheckBox>(R.id.mvp_checkbox)
             val mvpNumEditText = findViewById<EditText>(R.id.mvpNum)
-
+            val playerImageView = binding.chosenImage
             val playerName = playerNameEditText.text.toString().trim()
             val lastname = playerLastName.text.toString().trim()
             val playerAgeStr = playerAgeEditText.text.toString().trim()
+            val playerimage = resultdataimage
             var playerAge = 0
 
             try {
@@ -195,10 +199,11 @@ class AddPlayer : AppCompatActivity() {
                 val newposition = position
                 val newmvp = mvp
                 val newmvpnum= numOfMvp
+                val newplayerimage = playerimage
 
                 val playerId = player.id
 
-                updatePlayer(playerId,newplayername,newplayerlast,newplayerage,newnationality,newmvp,newmvpnum,newclub,newposition)
+                updatePlayer(playerId,newplayername,newplayerlast,newplayerage,newnationality,newmvp,newmvpnum,newclub,newposition,newplayerimage)
             } else {
                 if (playerName.isEmpty()) {
                     playerNameEditText.setHintTextColor(ContextCompat.getColor(this, R.color.red))
@@ -223,7 +228,7 @@ class AddPlayer : AppCompatActivity() {
                     //increments the id everytime a player is added
                     val lastPlayerId = app!!.players.findAll().lastOrNull()?.id ?: 0
                     val id = lastPlayerId + 1
-                    createPlayer(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
+                    createPlayer(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position,playerimage)
                 }
 
             }
@@ -231,14 +236,14 @@ class AddPlayer : AppCompatActivity() {
     }
 
 
-    fun createPlayer(id: Long, playerName: String, lastname: String, playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String
+    fun createPlayer(id: Long, playerName: String, lastname: String, playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String,playerimage: Uri
     ) {
         //code that adds all the inputted information into an arrayList
         Toast.makeText(this, "Player has been added", Toast.LENGTH_SHORT).show()
         val newPlayer =
-            Player(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position)
+            Player(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position,playerimage)
         app!!.players.create(newPlayer)
-
+        println(playerimage)
        // savePlayersToFlatFile(app.players.findAll())
 
 
@@ -249,11 +254,11 @@ class AddPlayer : AppCompatActivity() {
 
     }
 
-    private fun updatePlayer(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String) {
+    private fun updatePlayer(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String, playerimage: Uri) {
         val player = app.players.findById(playerId)
 
         if (player != null) {
-            app.players.update(playerId,playerName,lastname,playerAge,nationality,mvp,numOfMvp,club,position)
+            app.players.update(playerId,playerName,lastname,playerAge,nationality,mvp,numOfMvp,club,position,playerimage)
 
             Toast.makeText(this, "Player updated successfully", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PlayerListMain::class.java)
@@ -273,6 +278,7 @@ class AddPlayer : AppCompatActivity() {
                         if (result.data != null) {
                             println("Got Result ${result.data!!.data}")
                             player.imageUri = result.data!!.data!!
+                            resultdataimage = result.data!!.data!!
                             Picasso.get()
                                 .load(player.imageUri)
                                 .into(binding.chosenImage)

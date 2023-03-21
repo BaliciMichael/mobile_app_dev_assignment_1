@@ -1,9 +1,12 @@
 package ie.setu.assignment1.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toFile
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import ie.setu.assignment1.R
 import ie.setu.assignment1.databinding.CardPlayerBinding
 import ie.setu.assignment1.models.Player
 import ie.setu.assignment1.adapters.PlayerListener
@@ -37,9 +40,14 @@ class PlayerAdapter constructor(private var players: List<Player>,private val li
             binding.playerClub.text = "Team: "+player.club.capitalize()
             binding.playerPosition.text ="Position: "+ player.position.capitalize()
             binding.numOfMVP.text ="Number of MVP's: " + player.numOfMvp
+            if (!player.imageUri.toString().isNullOrEmpty()) {
+                Picasso.get()
+                    .load(player.imageUri)
+                    .into(binding.playerImage)
+            }
             binding.updateButton.setOnClickListener { listener.onUpdateClick(player)}
             binding.deleteButton.setOnClickListener{listener.onDeleteClick(player)}
-            Picasso.get().load(player.imageUri).into(binding.playerImage)
+
         }
     }
 }

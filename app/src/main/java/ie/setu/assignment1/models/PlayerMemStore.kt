@@ -1,11 +1,26 @@
 package ie.setu.assignment1.models
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log.i
+import com.google.gson.*
+import com.google.gson.reflect.TypeToken
+import ie.setu.assignment1.helpers.exists
+import ie.setu.assignment1.helpers.read
+import ie.setu.assignment1.helpers.write
+import java.lang.reflect.Type
+import java.util.*
 
-
+interface PlayerStore {
+    fun findAll(): List<Player>
+    fun create(player: Player)
+    fun update(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String, playerimage: Uri)
+    fun removePlayer(id:Long)
+}
 class PlayerMemStore : PlayerStore {
 
     val players = ArrayList<Player>()
+
 
     override fun findAll(): List<Player> {
         return players
@@ -29,7 +44,7 @@ class PlayerMemStore : PlayerStore {
         logAll()
     }
 
-    fun update(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String) {
+    override fun update(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String, playerimage: Uri) {
         var foundPlayer: Player? = players.find { p -> p.id == playerId }
         if (foundPlayer != null) {
             foundPlayer.name = playerName
@@ -47,4 +62,5 @@ class PlayerMemStore : PlayerStore {
     fun logAll() {
         players.forEach{ println("${it}") }
     }
+
 }
