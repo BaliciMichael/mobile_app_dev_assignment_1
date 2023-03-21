@@ -137,7 +137,7 @@ class AddPlayer : AppCompatActivity() {
         registerImagePickerCallback()
         val imagebutton=binding.addImageButton
         imagebutton.setOnClickListener{
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher,this)
         }
         addPlayerButtonClicked()
 

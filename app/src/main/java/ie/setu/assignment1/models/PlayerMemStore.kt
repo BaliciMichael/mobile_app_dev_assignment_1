@@ -16,6 +16,7 @@ interface PlayerStore {
     fun create(player: Player)
     fun update(playerId: Long,playerName: String,lastname: String,playerAge: Int, nationality: String, mvp: Boolean, numOfMvp: Int, club: String, position: String, playerimage: Uri)
     fun removePlayer(id:Long)
+    fun findById(id: Long):Player?
 }
 class PlayerMemStore : PlayerStore {
 
@@ -25,7 +26,7 @@ class PlayerMemStore : PlayerStore {
     override fun findAll(): List<Player> {
         return players
     }
-    fun findById(id: Long):Player? {
+    override fun findById(id: Long):Player? {
         for (player in players) {
             if (player.id == id) {
                 return player
