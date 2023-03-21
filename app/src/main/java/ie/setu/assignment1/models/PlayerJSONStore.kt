@@ -60,6 +60,14 @@ class PlayerJSONStore(private val context: Context) : PlayerStore {
     override fun removePlayer(id: Long) {
         players.removeIf { it.id == id }
     }
+    override fun findById(id: Long):Player? {
+        for (player in players) {
+            if (player.id == id) {
+                return player
+            }
+        }
+        return null
+    }
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(players, listType)

@@ -277,8 +277,13 @@ class AddPlayer : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             println("Got Result ${result.data!!.data}")
-                            player.imageUri = result.data!!.data!!
+
+                            val image = result.data!!.data!!
                             resultdataimage = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            player.imageUri = image
+
                             Picasso.get()
                                 .load(player.imageUri)
                                 .into(binding.chosenImage)
