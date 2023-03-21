@@ -32,7 +32,7 @@ class AddPlayer : AppCompatActivity() {
     private lateinit var mvpNum: EditText
     private lateinit var position: Spinner
     private lateinit var club: Spinner
-    private lateinit var resultdataimage : Uri
+    private var resultdataimage : Uri? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,12 +199,27 @@ class AddPlayer : AppCompatActivity() {
                 val newposition = position
                 val newmvp = mvp
                 val newmvpnum= numOfMvp
-                val newplayerimage = playerimage
+                var newplayerimage = resultdataimage
+                println(newplayerimage)
+                //if there is no new image slected during update use the same image
+
+
 
                 val playerId = player.id
 
-                updatePlayer(playerId,newplayername,newplayerlast,newplayerage,newnationality,newmvp,newmvpnum,newclub,newposition,newplayerimage)
-            } else {
+                if (newplayerimage == null) {
+                    newplayerimage = player.imageUri
+                    updatePlayer(playerId,newplayername,newplayerlast,newplayerage,newnationality,newmvp,newmvpnum,newclub,newposition,newplayerimage)
+                }
+                else {
+                    newplayerimage = resultdataimage
+                    if (newplayerimage != null) {
+                        updatePlayer(playerId,newplayername,newplayerlast,newplayerage,newnationality,newmvp,newmvpnum,newclub,newposition,newplayerimage)
+                    }
+                }
+            }
+
+            else {
                 if (playerName.isEmpty()) {
                     playerNameEditText.setHintTextColor(ContextCompat.getColor(this, R.color.red))
                     //println(ContextCompat.getColor(this,R.color.red).toString())
@@ -224,11 +239,16 @@ class AddPlayer : AppCompatActivity() {
                     nationalityEditText.setHintTextColor(ContextCompat.getColor(this, R.color.red))
                     Toast.makeText(this, "Please Enter a valid Nationality", Toast.LENGTH_SHORT)
                         .show()
+                } else if(playerimage == null){
+                    Toast.makeText(this, "Please Select an Image", Toast.LENGTH_SHORT)
+                        .show()
                 } else {
                     //increments the id everytime a player is added
                     val lastPlayerId = app!!.players.findAll().lastOrNull()?.id ?: 0
                     val id = lastPlayerId + 1
-                    createPlayer(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position,playerimage)
+
+                        createPlayer(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position,playerimage)
+
                 }
 
             }
@@ -280,6 +300,7 @@ class AddPlayer : AppCompatActivity() {
 
                             val image = result.data!!.data!!
                             resultdataimage = result.data!!.data!!
+                            println("RESULT DATA IMAGE: ${resultdataimage}")
                             contentResolver.takePersistableUriPermission(image,
                                 Intent.FLAG_GRANT_READ_URI_PERMISSION)
                             player.imageUri = image

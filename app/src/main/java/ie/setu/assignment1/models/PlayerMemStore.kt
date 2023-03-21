@@ -56,6 +56,7 @@ class PlayerMemStore : PlayerStore {
             foundPlayer.position = position
             foundPlayer.numOfMvp = numOfMvp
             foundPlayer.mvp = mvp
+            foundPlayer.imageUri = playerimage
             println("Player with the id: ${playerId} has been successfully updated!")
             logAll()
         }

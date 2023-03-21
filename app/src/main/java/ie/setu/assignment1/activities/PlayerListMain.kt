@@ -5,9 +5,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import ie.setu.assignment1.R
 import ie.setu.assignment1.adapters.PlayerAdapter
 import ie.setu.assignment1.adapters.PlayerListener
 import ie.setu.assignment1.databinding.PlayerListMainBinding
@@ -18,7 +21,7 @@ import ie.setu.assignment1.models.Player
 class PlayerListMain : AppCompatActivity(),PlayerListener{
     private lateinit var binding: PlayerListMainBinding
     lateinit var app: MainApp
-
+    private lateinit var team: Spinner
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = application as MainApp
@@ -32,6 +35,42 @@ class PlayerListMain : AppCompatActivity(),PlayerListener{
                 startActivity(intent)
 
         }
+        team =  binding.teamSpinner
+        val teams = arrayOf(
+            "Atlanta Hawks",
+            "Boston Celtics",
+            "Brooklyn Nets",
+            "Charlotte Hornets",
+            "Chicago Bulls",
+            "Cleveland Cavaliers",
+            "Dallas Mavericks",
+            "Denver Nuggets",
+            "Detroit Pistons",
+            "Golden State Warriors",
+            "Houston Rockets",
+            "Indiana Pacers",
+            "Los Angeles Clippers",
+            "Los Angeles Lakers",
+            "Memphis Grizzlies",
+            "Miami Heat",
+            "Milwaukee Bucks",
+            "Minnesota Timberwolves",
+            "New Orleans Pelicans",
+            "New York Knicks",
+            "Oklahoma City Thunder",
+            "Orlando Magic",
+            "Philadelphia 76ers",
+            "Phoenix Suns",
+            "Portland Trail Blazers",
+            "Sacramento Kings",
+            "San Antonio Spurs",
+            "Toronto Raptors",
+            "Utah Jazz",
+            "Washington Wizards"
+        )
+        val adapter = ArrayAdapter(this, R.layout.spinner_layout, teams)
+        adapter.setDropDownViewResource(R.layout.spinner_layout)
+        team.adapter = adapter
     }
     override fun onUpdateClick(player: Player) {
         val launcherIntent = Intent(this, AddPlayer::class.java)
