@@ -37,6 +37,7 @@ class PlayerListMain : AppCompatActivity(),PlayerListener{
         }
         team =  binding.teamSpinner
         val teams = arrayOf(
+            "Any",
             "Atlanta Hawks",
             "Boston Celtics",
             "Brooklyn Nets",
@@ -71,7 +72,30 @@ class PlayerListMain : AppCompatActivity(),PlayerListener{
         val adapter = ArrayAdapter(this, R.layout.spinner_layout, teams)
         adapter.setDropDownViewResource(R.layout.spinner_layout)
         team.adapter = adapter
+
+        binding.searchbutton.setOnClickListener{
+            val selected = team.selectedItem.toString()
+            filterSearch(selected)
+        }
     }
+
+    fun filterSearch(selectedTeam:String){
+
+        if(selectedTeam == "Any"){
+            binding.recyclerView.adapter = PlayerAdapter(app.players.findAll(),this)
+
+
+        }
+        else {
+            val filteredPlayers = app.players.findAll().filter { it.club == selectedTeam }
+            binding.recyclerView.adapter = PlayerAdapter(filteredPlayers, this)
+
+
+        }
+
+    }
+
+
     override fun onUpdateClick(player: Player) {
         val launcherIntent = Intent(this, AddPlayer::class.java)
         launcherIntent.putExtra("player_edit", player)
@@ -97,6 +121,7 @@ class PlayerListMain : AppCompatActivity(),PlayerListener{
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
 
 
     private val getClickResult =

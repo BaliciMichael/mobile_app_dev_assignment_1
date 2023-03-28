@@ -15,12 +15,11 @@ import ie.setu.assignment1.databinding.ActivityAddPlayerBinding
 import ie.setu.assignment1.helpers.showImagePicker
 import ie.setu.assignment1.main.MainApp
 import ie.setu.assignment1.models.Player
-import java.io.File
-import java.io.FileWriter
+import java.util.*
 
 
 class AddPlayer : AppCompatActivity() {
-    //private val players.txt = ArrayList<Player>()
+
 
     private lateinit var binding: ActivityAddPlayerBinding
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
@@ -32,6 +31,7 @@ class AddPlayer : AppCompatActivity() {
     private lateinit var mvpNum: EditText
     private lateinit var position: Spinner
     private lateinit var club: Spinner
+    private lateinit var country: Spinner
     private var resultdataimage : Uri? = null
 
 
@@ -48,7 +48,7 @@ class AddPlayer : AppCompatActivity() {
             player = intent.extras?.getParcelable("player_edit")!!
             binding.playerNameEditText.setText(player.name)
             binding.lastName.setText(player.last)
-            binding.nationalityEditText.setText(player.nationality)
+           // binding.nationalityEditText.setText(player.nationality)
             binding.playerAgeEditText.setText(player.age.toString())
             binding.createPlayerButton.setHint("Update Player")
             binding.addImageButton.setHint("Update Image")
@@ -133,6 +133,17 @@ class AddPlayer : AppCompatActivity() {
         val adapter2 = ArrayAdapter(this, R.layout.spinner_layout, clubs)
         adapter2.setDropDownViewResource(R.layout.spinner_layout)
         club.adapter = adapter2
+        country = findViewById(R.id.nationality_spinner)
+        val countries = Locale.getISOCountries()
+        val countryNames = mutableListOf<String>()
+        for (countryCode in countries) {
+            val locale = Locale("", countryCode)
+            val countryName = locale.displayCountry
+            countryNames.add(countryName)
+        }
+       val adapter3 = ArrayAdapter(this, R.layout.spinner_layout, countryNames)
+       adapter3.setDropDownViewResource(R.layout.spinner_layout)
+       country.adapter = adapter3
 
         registerImagePickerCallback()
         val imagebutton=binding.addImageButton
@@ -153,7 +164,7 @@ class AddPlayer : AppCompatActivity() {
             val playerNameEditText = findViewById<EditText>(R.id.player_name_edit_text)
             val playerLastName = findViewById<EditText>(R.id.last_name)
             val playerAgeEditText = findViewById<EditText>(R.id.player_age_edit_text)
-            val nationalityEditText = findViewById<EditText>(R.id.nationality_edit_text)
+            val nationalitySpinner = findViewById<Spinner>(R.id.nationality_spinner)
             val clubSpinner = findViewById<Spinner>(R.id.club_spinner)
             val positionSpinner = findViewById<Spinner>(R.id.position)
             val mvpCheckBox = findViewById<CheckBox>(R.id.mvp_checkbox)
@@ -173,7 +184,7 @@ class AddPlayer : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val nationality = nationalityEditText.text.toString().trim()
+            val nationality = nationalitySpinner.selectedItem.toString().trim()
             val mvp = mvpCheckBox.isChecked
             var numOfMvp = 0// temporary fix
             if (mvp) {
@@ -235,10 +246,6 @@ class AddPlayer : AppCompatActivity() {
                     playerAgeEditText.setHintTextColor(ContextCompat.getColor(this, R.color.red))
                     Toast.makeText(this, "Please a Valid Number", Toast.LENGTH_SHORT)
                         .show()
-                } else if (nationality.isEmpty()) {
-                    nationalityEditText.setHintTextColor(ContextCompat.getColor(this, R.color.red))
-                    Toast.makeText(this, "Please Enter a valid Nationality", Toast.LENGTH_SHORT)
-                        .show()
                 } else if(playerimage == null){
                     Toast.makeText(this, "Please Select an Image", Toast.LENGTH_SHORT)
                         .show()
@@ -247,7 +254,7 @@ class AddPlayer : AppCompatActivity() {
                     val lastPlayerId = app!!.players.findAll().lastOrNull()?.id ?: 0
                     val id = lastPlayerId + 1
 
-                        createPlayer(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position,playerimage)
+                    createPlayer(id, playerName, lastname, playerAge, nationality, mvp, numOfMvp, club, position,playerimage)
 
                 }
 
