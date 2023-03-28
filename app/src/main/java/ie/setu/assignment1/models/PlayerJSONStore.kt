@@ -59,6 +59,7 @@ class PlayerJSONStore(private val context: Context) : PlayerStore {
 
     override fun removePlayer(id: Long) {
         players.removeIf { it.id == id }
+        serialize()
     }
     override fun findById(id: Long):Player? {
         for (player in players) {
