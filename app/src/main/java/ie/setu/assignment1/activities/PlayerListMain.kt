@@ -83,14 +83,10 @@ class PlayerListMain : AppCompatActivity(),PlayerListener{
 
         if(selectedTeam == "Any"){
             binding.recyclerView.adapter = PlayerAdapter(app.players.findAll(),this)
-
-
         }
         else {
             val filteredPlayers = app.players.findAll().filter { it.club == selectedTeam }
             binding.recyclerView.adapter = PlayerAdapter(filteredPlayers, this)
-
-
         }
 
     }
@@ -100,8 +96,6 @@ class PlayerListMain : AppCompatActivity(),PlayerListener{
         val launcherIntent = Intent(this, AddPlayer::class.java)
         launcherIntent.putExtra("player_edit", player)
             getClickResult.launch(launcherIntent)
-
-
     }
 
     override fun onDeleteClick(player: Player) {
